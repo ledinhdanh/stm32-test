@@ -27,6 +27,10 @@ SECTIONS
         __data_end__ = .;
     } >ram AT >rom
 
+    /* startup code must copy __data_size__ bytes from __data_loadaddr__ to
+     * __data_start__ before calling C */
+    __data_loadaddr__ = LOADADDR(.data);
+
     .bss :
     {
         __bss_start__ = .;
