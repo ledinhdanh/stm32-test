@@ -3,7 +3,8 @@
 
 #include <stdint.h>
 
-
+static int global_data = 1;
+static int global_bss;
 
 //#include "stm32f0xx.h"
 // Nah, the above file has dependencies, just copy in the needed definitions.
