@@ -8,6 +8,10 @@ MEMORY
     rom (rx)  : ORIGIN = 0x08000000, LENGTH = 128K
 }
 
+/* this is a hack, need to have an entry point that performs .data and .bss
+ * init before calling C */
+ENTRY(main)
+
 SECTIONS
 {
     .text :
