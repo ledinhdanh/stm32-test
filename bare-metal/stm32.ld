@@ -32,7 +32,7 @@ SECTIONS
         __bss_start__ = .;
         *(.bss)       /* Zero-filled run time allocate data memory */
         __bss_end__ = .;
-    } >ram AT >rom
+    } >ram
 }
 
 __data_size__ = __data_end__ - __data_start__;
