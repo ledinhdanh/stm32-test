@@ -12,18 +12,28 @@ SECTIONS
 {
     .text :
     {
+	__rom_start__ = .;
         *(vectors)    /* Vector table */
         *(.text)      /* Program code */
         *(.rodata)    /* Read only data */
+	. = ALIGN(4);
+	__rom_end__ = .;
     } >rom
 
     .data :
     {
+        __data_start__ = .;
         *(.data)      /* Data memory */
+        __data_end__ = .;
     } >ram AT >rom
 
     .bss :
     {
+        __bss_start__ = .;
         *(.bss)       /* Zero-filled run time allocate data memory */
+        __bss_end__ = .;
     } >ram AT >rom
 }
+
+__data_size__ = __data_end__ - __data_start__;
+__bss_size__ = __bss_end__ - __bss_start__;
