@@ -11,5 +11,8 @@ main.elf: main.c Makefile stm32.ld
 	$(LD) -T stm32.ld -nostartfiles -o main.elf main.o
 	$(OBJCOPY) -O binary main.elf main.bin
 
+install: main.elf
+	st-flash write main.bin 0x08000000
+
 clean:
 	rm -f main.elf main.bin main.o
