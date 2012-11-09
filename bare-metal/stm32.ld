@@ -39,9 +39,10 @@ SECTIONS
     {
         __bss_start__ = .;
         *(.bss)       /* Zero-filled run time allocate data memory */
+	/* . = ALIGN(4); */
         __bss_end__ = .;
     } >ram
 }
 
-__data_size__ = __data_end__ - __data_start__;
-__bss_size__ = __bss_end__ - __bss_start__;
+__data_size__ = SIZEOF(.data);
+__bss_size__ = SIZEOF(.bss);
