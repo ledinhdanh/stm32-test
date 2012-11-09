@@ -28,6 +28,7 @@ SECTIONS
     {
         __data_start__ = .;
         *(.data)      /* Data memory */
+	. = ALIGN(4);
         __data_end__ = .;
     } >ram AT >rom
 
@@ -39,7 +40,7 @@ SECTIONS
     {
         __bss_start__ = .;
         *(.bss)       /* Zero-filled run time allocate data memory */
-	/* . = ALIGN(4); */
+	. = ALIGN(4);
         __bss_end__ = .;
     } >ram
 }
