@@ -15,4 +15,4 @@ install: main.elf
 	st-flash write main.bin 0x08000000
 
 clean:
-	rm -f main.elf main.bin main.o
+	rm -f main.elf main.bin main.o main.map
