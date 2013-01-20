@@ -47,3 +47,63 @@ make: *** [Libraries/STM32F0xx_StdPeriph_Driver/src/stm32f0xx_dac.o] Error 1
 ----
 
 you have forgotten to compile with `-DUSE_STDPERIPH_DRIVER`.
+
+
+
+Building the STMF0 Discovery demo in Eclipse
+--------------------------------------------
+
+Create a new C project in Eclipse and select the Sourcery G++ Lite toolchain.
+Download
+the STM32F0xx_StdPeriph_Lib_V1.0.0 package from
+http://www.st.com/internet/com/SOFTWARE_RESOURCES/SW_COMPONENT/FIRMWARE/stm32f0_stdperiph_lib.zip
+and unzip it.
+
+The following must be copied to the project directory, perhaps into a
+subdirectory called "cmsis":
+  Libraries/CMSIS/Include/
+  Libraries/CMSIS/ST/STM32F0xx/Include/
+  # If you build the demo, a slightly modified version of system_stm32f0xx.c
+  # file is in Project/Demonstration/, look at them and select *one* to copy into
+  # your project
+  Libraries/CMSIS/Device/ST/STM32F0xx/Source/Templates/system_stm32f0xx.c  # see comment above
+  Libraries/CMSIS/Device/ST/STM32F0xx/Source/Templates/TrueSTUDIO/startup_stm32f0xx.s
+
+Rename the extension of startup_stm32f0xx.s from .s to .S (it will not be
+included in the build unless you do this, it's an Eclipse build system
+thing...). If you don't do this you'll get a build warning like this:
+"cannot find entry symbol Reset_Handler; defaulting to 08000000".
+
+The following must be copied to the project directory, perhaps into a
+subdirectory called "stdperiph":
+  Libraries/STM32F0xx_StdPeriph_Driver/
+
+The following must be copied into the project, for example in the top level directory:
+  Project/Demonstration/*.c  # remember comment about system_stm32f0xx.c above
+  Project/Demonstration/*.h
+  Project/Demonstration/TrueSTUDIO/STM32F0-Discovery_Demo/stm32_flash.ld
+  Utilities/STM32F0-Discovery/stm32f0_discovery.c
+  Utilities/STM32F0-Discovery/stm32f0_discovery.h
+
+Press F5 in Eclipse to refresh the Project Explorer view. You should now see
+all the files that were copied above.
+
+In the project properties, add the "USE_STDPERIPH_DRIVER" preprocessor symbol
+and add the include paths ./cmsis/Include, ./stdperiph/inc and ./ (under the
+ARM Sourcery Linux GCC C Compiler section). Set the processor to "cortex-m0".
+Under the ARM Sourcery Linux GCC C Linker tool setting, add the path to
+stm32_flash.ld in the "Script file (-T)" field.
+
+Now build the project (Ctrl-b).
+
+NOTE: If you get "undefined reference to _init" build error, you have two
+choices. One is to uncheck "-nostartfiles" (i.e. build without the
+-nostartfiles flag) under ARM Sourcery Linux GCC C Linker. The other option is
+to comment out "bl __libc_init_array" from startup_stm32f0xx.S, because it is
+__libc_init_array that calls _init. The startup_stm32f0xx.s file in the
+gcc_ride7/ directory (ride7 is an Eclipse-based IDE from Raisonance) is almost
+identical to the Atollic one, with the notable exception that it doesn't call
+__libc_init_array. So using that file would solve the problem as well.
+
+TIP: Enable "-fdata-sections", "-ffunction-sections" and "-Xlinker --gc-sections"
+for smaller code.
