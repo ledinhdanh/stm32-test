@@ -26,3 +26,21 @@ Setting up Eclipse:
 Resources:
 www.st.com/
 http://www.bravegnu.org/gnu-eprog/ : awesome tutorial on using GNU toolchains for embedded (ARM) work
+
+
+Build errors with STM32F0xx_StdPeriph_Driver library
+----------------------------------------------------
+
+If you get something like this
+
+----
+../Libraries/STM32F0xx_StdPeriph_Driver/src/stm32f0xx_dac.c: In function 'DAC_DeInit':
+../Libraries/STM32F0xx_StdPeriph_Driver/src/stm32f0xx_dac.c:151:3: warning: implicit declaration of function 'RCC_APB1PeriphResetCmd' [-Wimplicit-function-declaration]
+../Libraries/STM32F0xx_StdPeriph_Driver/src/stm32f0xx_dac.c:151:26: error: 'RCC_APB1Periph_DAC' undeclared (first use in this function)
+../Libraries/STM32F0xx_StdPeriph_Driver/src/stm32f0xx_dac.c:151:26: note: each undeclared identifier is reported only once for each function it appears in
+../Libraries/STM32F0xx_StdPeriph_Driver/src/stm32f0xx_dac.c: In function 'DAC_Init':
+../Libraries/STM32F0xx_StdPeriph_Driver/src/stm32f0xx_dac.c:172:3: warning: implicit declaration of function 'assert_param' [-Wimplicit-function-declaration]
+make: *** [Libraries/STM32F0xx_StdPeriph_Driver/src/stm32f0xx_dac.o] Error 1
+----
+
+you have forgotten to compile with `-DUSE_STDPERIPH_DRIVER`.
