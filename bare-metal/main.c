@@ -40,8 +40,19 @@ typedef struct
 
 
 #define AHB2PERIPH_BASE       (PERIPH_BASE + 0x08000000)
+
+#define GPIOA_BASE            (AHB2PERIPH_BASE + 0x00000000)
+#define GPIOB_BASE            (AHB2PERIPH_BASE + 0x00000400)
 #define GPIOC_BASE            (AHB2PERIPH_BASE + 0x00000800)
-#define GPIOC                 ((GPIO_TypeDef *) GPIOC_BASE)
+#define GPIOD_BASE            (AHB2PERIPH_BASE + 0x00000C00)
+#define GPIOF_BASE            (AHB2PERIPH_BASE + 0x00001400)
+
+#define GPIOA               ((GPIO_TypeDef *) GPIOA_BASE)
+#define GPIOB               ((GPIO_TypeDef *) GPIOB_BASE)
+#define GPIOC               ((GPIO_TypeDef *) GPIOC_BASE)
+#define GPIOD               ((GPIO_TypeDef *) GPIOD_BASE)
+#define GPIOF               ((GPIO_TypeDef *) GPIOF_BASE)
+
 
 /** 
   * @brief General Purpose IO
