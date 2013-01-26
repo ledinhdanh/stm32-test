@@ -1,6 +1,6 @@
 Based on http://www.triplespark.net/elec/pdev/arm/stm32.html
 
-Run 'make' to build and flash to target (STM32F0 Discovery board) with
+Run 'make install' to build and flash to target (STM32F0 Discovery board) with
 arm-none-eabi-gdb (from Mentor Codebench Lite) and st-util from the stlink
 repo: https://github.com/texane/stlink.git
 
