@@ -109,3 +109,25 @@ __libc_init_array. So using that file would solve the problem as well.
 
 TIP: Enable "-fdata-sections", "-ffunction-sections" and "-Xlinker --gc-sections"
 for smaller code.
+
+
+
+
+Flashing with OpenOCD
+---------------------
+
+OpenOCD v0.6.0 comes with a config file for the STM32F0Discovery board. This is
+how to use only openocd to flash a binary file (main.bin) to the
+STM32F0Discovery board:
+
+----
+openocd -f board/stm32f0discovery.cfg -c "init; reset halt; flash write_image erase main.bin 0x08000000; reset run; shutdown"
+----
+
+
+Flashing with stlink (from https://github.com/texane/stlink/)
+-------------------------------------------------------------
+
+----
+st-flash write main.bin 0x08000000
+----
