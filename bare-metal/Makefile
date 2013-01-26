@@ -2,7 +2,7 @@ CROSS_COMPILE ?= arm-none-eabi-
 CC = $(CROSS_COMPILE)gcc
 LD = $(CROSS_COMPILE)ld
 OBJCOPY = $(CROSS_COMPILE)objcopy
-CFLAGS += -fno-common -O0 -g -mcpu=cortex-m0 -mthumb
+CFLAGS += -fno-common -O0 -g3 -mcpu=cortex-m0 -mthumb
 
 all: main.elf
 
