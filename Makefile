@@ -61,15 +61,21 @@ THIS_MAKEFILE := $(call where-am-i)
 
 all: build size
 
-build: $(RESULT).elf
+build: $(RESULT).elf $(RESULT).bin $(RESULT).hex $(RESULT).lst
 
 $(RESULT).elf: $(SOURCES) $(HEADERS) $(LINKER_SCRIPT) $(THIS_MAKEFILE)
-	$(CC) -Wl,-M=$(RESULT).map -Wl,-T$(LINKER_SCRIPT) $(CFLAGS) $(SOURCES) -o $(RESULT).elf
-	$(OBJCOPY) -O binary $(RESULT).elf $(RESULT).bin
-	$(OBJCOPY) -O ihex $(RESULT).elf $(RESULT).hex
-	$(OBJDUMP) -S $(RESULT).elf > $(RESULT).lst
+	$(CC) -Wl,-M=$(RESULT).map -Wl,-T$(LINKER_SCRIPT) $(CFLAGS) $(SOURCES) -o $@
 
-size: build
+%.hex: %.elf
+	$(OBJCOPY) -O ihex $< $@
+
+%.bin: %.elf
+	$(OBJCOPY) -O binary $< $@
+
+%.lst: %.elf
+	$(OBJDUMP) -S $(RESULT).elf > $@
+
+size: $(RESULT).elf
 	$(SIZE) $(RESULT).elf
 
 install: build
