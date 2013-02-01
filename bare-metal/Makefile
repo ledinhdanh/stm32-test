@@ -9,7 +9,7 @@ all: main.elf
 
 main.elf: main.c Makefile stm32.ld
 	$(CC) -I. -c $(CFLAGS) main.c
-	$(LD) --gc-sections -M=main.map -T stm32.ld -nostartfiles -o main.elf main.o
+	$(LD) --gc-sections -M=main.map -T stm32.ld -o main.elf main.o
 	$(OBJCOPY) -O binary main.elf main.bin
 
 size: main.elf
