@@ -73,7 +73,7 @@ $(RESULT).elf: $(SOURCES) $(HEADERS) $(LINKER_SCRIPT) $(THIS_MAKEFILE)
 	$(OBJCOPY) -O binary $< $@
 
 %.lst: %.elf
-	$(OBJDUMP) -S $(RESULT).elf > $@
+	$(OBJDUMP) -x -S $(RESULT).elf > $@
 
 size: $(RESULT).elf
 	$(SIZE) $(RESULT).elf
