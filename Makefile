@@ -56,8 +56,7 @@ SIZE = $(CROSS_COMPILE)size
 
 # So that the "build depends on the makefile" trick works no matter the name of
 # the makefile
-where-am-i = $(CURDIR)/$(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST))
-THIS_MAKEFILE := $(call where-am-i)
+THIS_MAKEFILE := $(lastword $(MAKEFILE_LIST))
 
 all: build size
 
