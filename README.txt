@@ -131,3 +131,47 @@ Flashing with stlink (from https://github.com/texane/stlink/)
 ----
 st-flash write main.bin 0x08000000
 ----
+
+
+
+
+Eclipse, OpenOCD and CMake
+--------------------------
+
+If you have an STM32 project that is using CMake, do the following to get
+smooth build and debug experience using Eclipse.
+
+ * Download "Eclipse IDE for C/C++ Developers". I tested this with version
+   4.2.2 (Juno) on 64-bit Linux.
+ * Make a build dir for eclipse and use cmake to generate project files
+   there. (Eclipse doesn't like it if the build dir is inside the source dir, so
+   don't do that.)
+     mkdir build-eclipse
+     cmake path/to/source -G"Eclipse CDT4 - Unix Makefiles"
+ * Start eclipse and select File -> Import -> General -> Existing Projects into
+   Workspace. Select the build-eclipse dir and leave the rest at default
+   settings. You can now build the project, jump to errors, get code completion
+   support etc.
+ * Install the GDB hardware debugging plugin through
+   Help -> Install New Software. Create a new GDB Hardware Debugging
+   configuration, set the gdb command (arm-none-eabi-gdb for example) and
+   select "OpenOCD (via pipe)" as JTAG device. In the openocd connect string
+   field, put something like this:
+     | openocd -f board/stm32ldiscovery.cfg -c "gdb_port pipe; log_output openocd.log; init; reset init"
+
+   The rest can be default. Just click "Debug" and enjoy.
+
+The ONLY thing left now that is a bit annoying is this warning (harmless):
+  warning: RMT ERROR : failed to get remote thread list
+
+...and that the debug button seems to "fall back" to local application debug
+(not jtag/hardware) when in C/C++ perspective. So the debug configuration has
+to be selected from the drop-down menu. But once in debug perspective its state
+is handled correctly (the last debug config is used when the button is
+pressed).
+
+TIP: Bind "Terminate and relaunch" to Ctrl-r (or something you like) in debug
+mode. You can edit just fine in the debug perspective. I actually find it most
+productive for intense edit/compile/debug sessions to just stay in the debug
+perspective and press ctrl-r to start over (Eclipse builds and flashes (if
+needed)).
