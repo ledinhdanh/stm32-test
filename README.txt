@@ -134,6 +134,19 @@ st-flash write main.bin 0x08000000
 
 
 
+Using OpenOCD as a gdbserver
+----------------------------
+
+This way the target is always reset when GDB attaches (so the reset operation
+doesn't have to be specified in each GDB config):
+
+  openocd -f board/stm32ldiscovery.cfg -c 'gdb_port 4242; $_TARGETNAME configure -event gdb-attach { reset init }'
+
+Read more here:
+  http://openocd.sourceforge.net/doc/html/GDB-and-OpenOCD.html
+  http://openocd.sourceforge.net/doc/html/CPU-Configuration.html (in the "Target Events" section)
+
+
 
 Eclipse, OpenOCD and CMake
 --------------------------
