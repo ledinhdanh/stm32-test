@@ -176,8 +176,8 @@ smooth build and debug experience using Eclipse.
 
    (If you experience issues with debugging, try unchecking "Reset and Delay"
    and "Halt" under the "Startup" tab in the debugging configuration. This issue
-   happened to me once when the MCU was programmed with in a way that disabled the
-   JTAG/SWD pins and I couldn't get the Eclipse gdb to halt the target.)
+   happened to me once when the MCU was programmed to disable the JTAG/SWD pins
+   and I couldn't get the Eclipse gdb to halt the target.)
 
 The ONLY thing left now that is a bit annoying is this warning (harmless):
   warning: RMT ERROR : failed to get remote thread list
