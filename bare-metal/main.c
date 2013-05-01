@@ -36,6 +36,7 @@ typedef struct
 #define AHBPERIPH_BASE        (PERIPH_BASE + 0x00020000)
 #define RCC_BASE              (AHBPERIPH_BASE + 0x00001000)
 #define RCC                   ((RCC_TypeDef *) RCC_BASE)
+#define RCC_AHBENR_GPIOBEN    ((uint32_t)0x00040000)        /*!< GPIOB clock enable */
 #define RCC_AHBENR_GPIOCEN    ((uint32_t)0x00080000)        /*!< GPIOC clock enable */
 
 
