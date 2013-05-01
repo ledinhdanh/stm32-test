@@ -1,0 +1,6 @@
+# .gdbinit - flash device with "arm-none-eabi-gdb main.elf"
+target extended-remote :4242
+monitor reset init
+load
+monitor reset run
+quit
